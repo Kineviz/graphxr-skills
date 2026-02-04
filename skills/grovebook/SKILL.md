@@ -75,6 +75,28 @@ Everything from the HTML comment to the closing code fence.
 
 #### ObservableHQ's Inputs library
 
+See `references/observablehq-inputs.md` for more information about the ObservableHQ Inputs library. One of the following:
+
+```js
+Inputs.button(content, options)      // Click trigger
+Inputs.toggle(options)               // On/off switch
+Inputs.checkbox(data, options)       // Multiple selection
+Inputs.radio(data, options)          // Single selection (visible)
+Inputs.range(extent, options)        // Number slider
+Inputs.number(extent?, options)      // Number input only
+Inputs.select(data, options)         // Dropdown menu
+Inputs.text(options)                 // Single-line text
+Inputs.email(options)                // Email input
+Inputs.tel(options)                  // Telephone input
+Inputs.url(options)                  // URL input
+Inputs.password(options)             // Password input
+Inputs.textarea(options)             // Multi-line text
+Inputs.date(options)                 // Date picker
+Inputs.datetime(options)             // Date + time picker
+Inputs.color(options)                // Color picker
+Inputs.file(options)                 // File upload
+```
+
 #### A built-in Grove extended library component
 
 ````
