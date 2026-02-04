@@ -25,24 +25,68 @@ Grovebooks must end with the .md extension.
 
 Cells store metadata in an HTML comment in the line preceding the code fence. The format is:
 
+A cell looks like:
+
+````
 <!--{"pinCode":false,"dname":"social-network-graph-cell","codeMode":"js","hide":false}-->
+```js
+{
+  return 1 + 1;
+}
+```
+````
 
-Every cell must have a valid HTML comment preceding it.
+Everything from the HTML comment to the closing code fence.
 
-The codeMode is almost always "js".
+### Valid return values
 
-Every cell must beging with a `\`\`\`js{` and end with a `}\`\`\``.
+#### A primitive JavaScript value
 
-The cell can return:
-- A primitive JavaScript value
-- HTML with an HTML literal like `{ return html\`\` }`
-- Markdown with the `md` literal like `{ return md\`\` }`
-- Any component from ObservableHQ's Inputs library
-- A built-in Grove extended library component
-- `{ return Button("Label", async() => {}) }`
-- If a cell returns a value, use the `return` keyword.
-- If the `return` keyword is used, the cell must be surrounded in { }.
-- As a rule of thumb, enclose every cell with curly braces.
+````
+<!--{"pinCode":false,"dname":"social-network-graph-cell","codeMode":"js","hide":false}-->
+```js
+{
+  return 1 + 1;
+}
+```
+````
+
+#### HTML
+
+````
+<!--{"pinCode":false,"dname":"social-network-graph-cell","codeMode":"js","hide":false}-->
+```js
+{
+  return html`${1 + 1}`;
+}
+```
+````
+
+#### Markdown with the `md` literal like `{ return md\`\` }`
+
+````
+<!--{"pinCode":false,"dname":"social-network-graph-cell","codeMode":"js","hide":false}-->
+```js
+{
+  return md`# Hello, world`;
+}
+```
+````
+
+#### ObservableHQ's Inputs library
+
+#### A built-in Grove extended library component
+
+````
+<!--{"pinCode":false,"dname":"social-network-graph-cell","codeMode":"js","hide":false}-->
+```js
+{
+  return await Button("Label", async() => {
+
+  });
+}
+```
+````
 
 ## Markdown
 
@@ -53,8 +97,6 @@ Grovebooks are markdown files, so standard markdown syntax can be used throughou
 <!-- User will fill in this section -->
 
 ## Examples
-
-<!-- User will fill in this section -->
 
 ### Hello, world!
 
