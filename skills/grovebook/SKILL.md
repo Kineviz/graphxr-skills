@@ -28,7 +28,7 @@ Cells store metadata in an HTML comment in the line preceding the code fence. Th
 A cell looks like:
 
 ````
-<!--{"pinCode":false,"dname":"social-network-graph-cell","codeMode":"js","hide":false}-->
+<!--{"pinCode":false,"dname":"js-cell","codeMode":"js","hide":false}-->
 ```js
 {
   return 1 + 1;
@@ -38,12 +38,30 @@ A cell looks like:
 
 Everything from the HTML comment to the closing code fence.
 
-### Valid return values
+### Types of cells
+
+#### Reactive variable
+
+````
+<!--{"pinCode":false,"dname":"reactive-variable-cell1","codeMode":"js","hide":false}-->
+```js
+x = {
+  return 1 + 1;
+}
+```
+
+<!--{"pinCode":false,"dname":"reactive-variable-cell2","codeMode":"js","hide":false}-->
+```js
+y = {
+  return x + 2;
+}
+```
+````
 
 #### A primitive JavaScript value
 
 ````
-<!--{"pinCode":false,"dname":"social-network-graph-cell","codeMode":"js","hide":false}-->
+<!--{"pinCode":false,"dname":"primitive-cell","codeMode":"js","hide":false}-->
 ```js
 {
   return 1 + 1;
@@ -54,7 +72,7 @@ Everything from the HTML comment to the closing code fence.
 #### HTML
 
 ````
-<!--{"pinCode":false,"dname":"social-network-graph-cell","codeMode":"js","hide":false}-->
+<!--{"pinCode":false,"dname":"html-cell","codeMode":"js","hide":false}-->
 ```js
 {
   return html`${1 + 1}`;
@@ -65,7 +83,7 @@ Everything from the HTML comment to the closing code fence.
 #### Markdown with the `md` literal like `{ return md\`\` }`
 
 ````
-<!--{"pinCode":false,"dname":"social-network-graph-cell","codeMode":"js","hide":false}-->
+<!--{"pinCode":false,"dname":"markdown-cell","codeMode":"js","hide":false}-->
 ```js
 {
   return md`# Hello, world`;
@@ -97,15 +115,66 @@ Inputs.color(options)                // Color picker
 Inputs.file(options)                 // File upload
 ```
 
+````
+<!--{"pinCode":false,"dname":"my-cell","codeMode":"js","hide":false}-->
+```js
+viewof name = Inputs.text({label: "Name", placeholder: "What's your name?"});
+```
+````
+
 #### A built-in Grove extended library component
 
 ````
-<!--{"pinCode":false,"dname":"social-network-graph-cell","codeMode":"js","hide":false}-->
+<!--{"pinCode":false,"dname":"button-cell","codeMode":"js","hide":false}-->
 ```js
 {
   return await Button("Label", async() => {
-
+    console.log("Button clicked");
   });
+}
+```
+````
+
+#### JSX
+
+##### A custom React component
+
+Note that the code mode must be `jsx` for custom React components.
+
+````
+<!--{"pinCode":false,"dname":"jsx-cell","codeMode":"jsx","hide":false}-->
+```jsx
+function CounterComponent() {
+  const [x, setX] = React.useState(0);
+  return <button onClick={() => {
+    setX(x + 1);
+  }}>{x}</button> 
+}
+```
+````
+
+##### Rendering a custom React component
+
+````
+<!--{"pinCode":false,"dname":"jsx-cell","codeMode":"jsx","hide":false}-->
+```jsx
+react(<CounterComponent />);
+```
+````
+
+##### Using AntD
+
+Grove provides AntD 4.16.13.
+
+````
+<!--{"pinCode":false,"dname":"antd-cell","codeMode":"jsx","hide":false}-->
+```jsx
+function CounterComponent() {
+  const {Button} = Antd;
+  const [x, setX] = React.useState(0);
+  return <Button onClick={() => {
+    setX(x + 1);
+  }}>{x}</Button> 
 }
 ```
 ````
