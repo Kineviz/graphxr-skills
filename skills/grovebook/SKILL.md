@@ -26,18 +26,23 @@ Grovebooks must end with the .md extension.
 Cells store metadata in an HTML comment in the line preceding the code fence. The format is:
 
 ```html
-<!--{"pinCode":false,"dname":"social-network-graph-cell","codeMode":"javascript2","hide":false}-->
+<!--{"pinCode":false,"dname":"social-network-graph-cell","codeMode":"js","hide":false}-->
 ```
 
-The cell starts with a `{` and ends with a `}`.
+The codeMode is almost always "js".
+
+Every cell must beging with a `{` and end with a `}`.
 
 The cell can return:
 - A primitive JavaScript value
-- HTML with an HTML literal like `html\`\``
-- Markdown with the `md` literal like `md\`\``
+- HTML with an HTML literal like `{ return html\`\` }`
+- Markdown with the `md` literal like `{ return md\`\` }`
 - Any component from ObservableHQ's Inputs library
 - A built-in Grove extended library component
-- `Button("Label", async() => {})`
+- `{ return Button("Label", async() => {}) }`
+- If a cell returns a value, use the `return` keyword.
+- If the `return` keyword is used, the cell must be surrounded in { }.
+- As a rule of thumb, enclose every cell with curly braces.
 
 ## Markdown
 
@@ -54,7 +59,7 @@ Grovebooks are markdown files, so standard markdown syntax can be used throughou
 ### Hello, world!
 
 ````
-<!--{"pinCode":false,"dname":"07120854-6c51-47b9-a083-0767ebdae917","codeMode":"javascript2","hide":false}-->
+<!--{"pinCode":false,"dname":"07120854-6c51-47b9-a083-0767ebdae917","codeMode":"js","hide":false}-->
 ```js
 {
   return Button("Hello, world!", async () => {
@@ -69,7 +74,7 @@ Grovebooks are markdown files, so standard markdown syntax can be used throughou
 ````
 # Hello, world!
 
-<!--{"pinCode":false,"dname":"07120854-6c51-47b9-a083-0767ebdae917","codeMode":"javascript2","hide":false}-->
+<!--{"pinCode":false,"dname":"07120854-6c51-47b9-a083-0767ebdae917","codeMode":"js","hide":false}-->
 ```js
 {
   return Button("Hello, world!", async () => {
@@ -80,7 +85,7 @@ Grovebooks are markdown files, so standard markdown syntax can be used throughou
 
 ## Here's another cell which computes a primitive value.
 
-<!--{"pinCode":false,"dname":"reacting-to-graph-data-change-events","codeMode":"javascript2","hide":false}-->
+<!--{"pinCode":false,"dname":"reacting-to-graph-data-change-events","codeMode":"js","hide":false}-->
 ```js
 {
   return 1 + 1;
