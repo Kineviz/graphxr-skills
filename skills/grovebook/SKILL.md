@@ -17,6 +17,10 @@ Use this skill when the user wants to:
 
 A grovebook file is a markdown file that contains interactive cells. These cells can execute JavaScript code and return various types of content including primitive values, HTML, markdown, ObservableHQ Inputs components, or Grove extended library components.
 
+## File Extension
+
+Grovebooks must end with the .md extension.
+
 ## Cells
 
 Cells store metadata in an HTML comment in the line preceding the code fence. The format is:
@@ -49,7 +53,7 @@ Grovebooks are markdown files, so standard markdown syntax can be used throughou
 
 ### Hello, world!
 
-```html
+````
 <!--{"pinCode":false,"dname":"07120854-6c51-47b9-a083-0767ebdae917","codeMode":"javascript2","hide":false}-->
 ```js
 {
@@ -58,3 +62,30 @@ Grovebooks are markdown files, so standard markdown syntax can be used throughou
   });
 }
 ```
+````
+
+### Multiple cells + interleaved Markdown
+
+````
+# Hello, world!
+
+<!--{"pinCode":false,"dname":"07120854-6c51-47b9-a083-0767ebdae917","codeMode":"javascript2","hide":false}-->
+```js
+{
+  return Button("Hello, world!", async () => {
+    console.log("Hello, world!");
+  });
+}
+```
+
+## Here's another cell which computes a primitive value.
+
+<!--{"pinCode":false,"dname":"reacting-to-graph-data-change-events","codeMode":"javascript2","hide":false}-->
+```js
+{
+  return 1 + 1;
+}
+```
+
+This is the bottom of the file.
+````
