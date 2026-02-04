@@ -151,12 +151,8 @@ function CounterComponent() {
   }}>{x}</button> 
 }
 ```
-````
 
-##### Rendering a custom React component
-
-````
-<!--{"pinCode":false,"dname":"jsx-cell","codeMode":"jsx","hide":false}-->
+<!--{"pinCode":false,"dname":"render-react-cell","codeMode":"jsx","hide":false}-->
 ```jsx
 react(<CounterComponent />);
 ```
@@ -176,6 +172,11 @@ function CounterComponent() {
     setX(x + 1);
   }}>{x}</Button> 
 }
+```
+
+<!--{"pinCode":false,"dname":"render-antd-cell","codeMode":"jsx","hide":false}-->
+```jsx
+react(<CounterComponent />);
 ```
 ````
 
