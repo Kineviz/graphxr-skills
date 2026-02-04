@@ -139,7 +139,9 @@ viewof name = Inputs.text({label: "Name", placeholder: "What's your name?"});
 
 ##### A custom React component
 
-Note that the code mode must be `jsx` for custom React components.
+- Note that the code mode must be `jsx` for custom React components.
+- One component per cell.
+- Component definitions and calls to react() must be in separate cells.
 
 ````
 <!--{"pinCode":false,"dname":"jsx-cell","codeMode":"jsx","hide":false}-->
@@ -160,7 +162,9 @@ react(<CounterComponent />);
 
 ##### Using AntD
 
-Grove provides AntD 4.16.13.
+- Grove provides AntD 4.16.13.
+- One component per cell.
+- Component definitions and calls to react() must be in separate cells.
 
 ````
 <!--{"pinCode":false,"dname":"antd-cell","codeMode":"jsx","hide":false}-->
