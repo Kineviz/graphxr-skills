@@ -126,7 +126,7 @@ Grovebooks are markdown files, so standard markdown syntax can be used throughou
 <!--{"pinCode":false,"dname":"07120854-6c51-47b9-a083-0767ebdae917","codeMode":"js","hide":false}-->
 ```js
 {
-  return Button("Hello, world!", async () => {
+  return await Button("Hello, world!", async () => {
     console.log("Hello, world!");
   });
 }
@@ -141,7 +141,7 @@ Grovebooks are markdown files, so standard markdown syntax can be used throughou
 <!--{"pinCode":false,"dname":"07120854-6c51-47b9-a083-0767ebdae917","codeMode":"js","hide":false}-->
 ```js
 {
-  return Button("Hello, world!", async () => {
+  return await Button("Hello, world!", async () => {
     console.log("Hello, world!");
   });
 }
@@ -157,4 +157,20 @@ Grovebooks are markdown files, so standard markdown syntax can be used throughou
 ```
 
 This is the bottom of the file.
+````
+
+
+### A cell which returns a combination of components
+
+````
+<!--{"pinCode":false,"dname":"07120854-6c51-47b9-a083-0767ebdae917","codeMode":"js","hide":false}-->
+```js
+{
+  return html`${await Button("Hello, world!", async () => {
+    console.log("Hello, world!");
+  })} ${await Button("Hello, world!", async () => {
+    console.log("Hello, world!");
+  })} ${Inputs.button("Hi")}`;
+}
+```
 ````
