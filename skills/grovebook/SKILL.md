@@ -25,13 +25,13 @@ Grovebooks must end with the .md extension.
 
 Cells store metadata in an HTML comment in the line preceding the code fence. The format is:
 
-```html
 <!--{"pinCode":false,"dname":"social-network-graph-cell","codeMode":"js","hide":false}-->
-```
+
+Every cell must have a valid HTML comment preceding it.
 
 The codeMode is almost always "js".
 
-Every cell must beging with a `{` and end with a `}`.
+Every cell must beging with a `\`\`\`js{` and end with a `}\`\`\``.
 
 The cell can return:
 - A primitive JavaScript value
