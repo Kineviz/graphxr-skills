@@ -208,6 +208,36 @@ Visit https://graphxr.dev/docs/graphxr-api/reference for a detailed reference of
 
 Grove includes a rich library of built-in variables and components.
 
+### Built-in variables
+
+- `width`: number, the width of the current cell in pixels.
+- `selectedNodes`: IterableNodes (GraphXR API type), a reactive variable for the nodes that are currently selected in the graph.
+- `selectedEdges`: IterableEdges (GraphXR API type), a reactive variable for the edges that are currently selected in the graph.
+- `graph`: GraphSelection (GraphXR API type), a reactive variable for the canvas graph.
+- `now`: number, a reactive variable for the current time in milliseconds. Imported from `@observablehq/stdlib/src/now.js`
+- `uuidv4`: fucntion, UUID v4 generator (uuid ^8.3.2). e.g. `uuidv4()`
+
+### Visualization libraries
+
+- `Plot`: Observable Plot v0.6.14
+- `d3`: D3.js v7.8.5 (includes d3-hexbin v0.2.2)
+- `L`: Leaflet v1.9.3
+- `mermaid`: Mermaid v9.2.2
+- `dot`: Graphviz (@observablehq/graphviz v0.2.1)
+- `svg`: SVG utilities (from @observablehq/stdlib v3.4.1)
+- `vl`: Vega-Lite v5.6.0 (uses Vega v5.22.1, vega-lite-api v5.0.0)
+
+### Utilities
+
+- `_`: Lodash v4.17.21
+
+### React & UI components
+
+- `Antd`: Ant Design v4.16.13
+- `AntdIcons`: @ant-design/icons ^5.0.1
+- `React`: React ^17.0.1
+- `react`: React wrapper function used for rendering React components.
+
 ## Examples
 
 ### Hello, world!
@@ -347,4 +377,4 @@ Button("Increment", async () => {
 
 ## Best Practices
 
-- Use AntD components.
+- Prefer AntD components.
