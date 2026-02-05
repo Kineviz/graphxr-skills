@@ -23,8 +23,6 @@ Grovebooks must end with the .md extension.
 
 ## Cells
 
-Cells store metadata in an HTML comment in the line preceding the code fence. The format is:
-
 A cell looks like:
 
 ````
@@ -36,40 +34,31 @@ A cell looks like:
 ```
 ````
 
-Everything from the HTML comment to the closing code fence.
+### Schema of a cell
+
+1. HTML comment with JSON metadata
+2. Code fence with the code for the cell
+
+### Cell metadata
+
+The metadata is a JSON object contained in an HTML comment that precedes the code fence for the cell. It contains the following properties:
+
+- `pinCode`: boolean, whether to pin the cell. If true, the code will display in Grove.
+- `dname`: string, unique identifier of the cell.
+- `codeMode`: string, the code mode of the cell. Typical values are `js`, `jsx`, and `md`.
+- `hide`: boolean, whether to hide the cell while not editing.
+
+Example:
+```
+<!--{"pinCode":false,"dname":"js-cell","codeMode":"js","hide":false}-->
+```
+
 
 ### Types of cells
 
-#### Reactive variable
+#### Renderable content
 
-````
-<!--{"pinCode":false,"dname":"reactive-variable-cell1","codeMode":"js","hide":false}-->
-```js
-x = {
-  return 1 + 1;
-}
-```
-
-<!--{"pinCode":false,"dname":"reactive-variable-cell2","codeMode":"js","hide":false}-->
-```js
-y = {
-  return x + 2;
-}
-```
-````
-
-#### A primitive JavaScript value
-
-````
-<!--{"pinCode":false,"dname":"primitive-cell","codeMode":"js","hide":false}-->
-```js
-{
-  return 1 + 1;
-}
-```
-````
-
-#### HTML
+##### HTML
 
 ````
 <!--{"pinCode":false,"dname":"html-cell","codeMode":"js","hide":false}-->
@@ -80,7 +69,7 @@ y = {
 ```
 ````
 
-#### Markdown with the `md` literal like `{ return md\`\` }`
+##### Markdown with the `md` literal like `{ return md\`\` }`
 
 ````
 <!--{"pinCode":false,"dname":"markdown-cell","codeMode":"js","hide":false}-->
@@ -91,7 +80,7 @@ y = {
 ```
 ````
 
-#### ObservableHQ's Inputs library
+##### ObservableHQ's Inputs library
 
 See `references/observablehq-inputs.md` for more information about the ObservableHQ Inputs library. One of the following:
 
@@ -122,22 +111,9 @@ viewof name = Inputs.text({label: "Name", placeholder: "What's your name?"});
 ```
 ````
 
-#### A built-in Grove extended library component
+##### JSX
 
-````
-<!--{"pinCode":false,"dname":"button-cell","codeMode":"js","hide":false}-->
-```js
-{
-  return await Button("Label", async() => {
-    console.log("Button clicked");
-  });
-}
-```
-````
-
-#### JSX
-
-##### A custom React component
+###### A custom React component
 
 - Note that the code mode must be `jsx` for custom React components.
 - One component per cell.
@@ -160,8 +136,9 @@ react(<CounterComponent />);
 ```
 ````
 
-##### Using AntD
+###### Using AntD
 
+- See `references/examples/antd-grovebook-example.md` for an example of using AntD in a grovebook.
 - Grove provides AntD 4.16.13.
 - One component per cell.
 - Component definitions and calls to react() must be in separate cells.
@@ -184,13 +161,52 @@ react(<CounterComponent />);
 ```
 ````
 
-## Markdown
+#### Reactive variable
 
-Grovebooks are markdown files, so standard markdown syntax can be used throughout the file for text content, headings, lists, links, and other markdown elements.
+##### Simple reactive variable
+
+````
+<!--{"pinCode":false,"dname":"reactive-variable-cell1","codeMode":"js","hide":false}-->
+```js
+x = {
+  return 1 + 1;
+}
+```
+
+<!--{"pinCode":false,"dname":"reactive-variable-cell2","codeMode":"js","hide":false}-->
+```js
+y = {
+  return x + 2;
+}
+```
+````
+
+##### viewof
+
+A `viewof` cell creates a link between a user interface element and its value by defining two variables in the DAG: one for the HTML input itself and one for its live data. When a user interacts with the input, the value variable updates automatically, triggering a reactive update of all downstream cells.
+
+````
+<!--{"pinCode":false,"dname":"viewof-example","codeMode":"js","hide":false}-->
+```js
+viewof size = Inputs.range([0, 100], {label: "Size"})
+```
+
+<!--{"pinCode":false,"dname":"area-cell","codeMode":"js","hide":false}-->
+```js
+// Automatically re-runs whenever the slider moves
+area = Math.PI * (size ** 2)
+```
+````
+
+## GraphXR API
+
+Grovebooks use GraphXR API to interact with the GraphXR platform.
+
+Visit https://graphxr.dev/docs/graphxr-api/reference for a detailed reference of the GraphXR API.
 
 ## Grove Library
 
-<!-- User will fill in this section -->
+Grove includes a rich library of built-in variables and components.
 
 ## Examples
 
@@ -248,3 +264,87 @@ This is the bottom of the file.
 }
 ```
 ````
+
+## State Management
+
+In **Grove**, the **Directed Acyclic Graph (DAG)** is the architectural foundation of its reactive runtime. Unlike traditional linear notebooks, where code execution depends on the order of cells on the page, Grove treats each cell as a node in a dataflow graph.
+
+### Key Characteristics of the Grove DAG
+*   **Dependency-Based Execution:** Cells are executed based on their topological order. If Cell B references a variable defined in Cell A, a directed edge is created from A to B (\(A \to B\)). Cell B will only run after Cell A has successfully evaluated.
+*   **Reactivity:** When a value in a "parent" cell changes (e.g., via an input slider), the Grove runtime automatically propagates that change through the DAG, re-evaluating only the "downstream" cells.
+*   **Acyclic Constraint:** The graph must be "acyclic." Circular dependencies (e.g., Cell A depends on B, which depends on A) are prohibited and will cause the Grove runtime to throw an error.
+*   **Order Independence:** Because the DAG determines execution, the physical position of cells in Grove does not matter. A variable defined at the bottom of the page can be used at the top; the runtime handles the sequence correctly.
+
+### Implicit Handling of Promises and Generators
+The Grove DAG also manages asynchronous state. If a cell returns a **Promise**, downstream cells in the DAG implicitly wait for it to resolve. If a cell is a **Generator**, the DAG triggers a re-evaluation of all dependent cells every time a new value is yielded.
+
+### State Management Examples
+
+#### Basic reactive variable
+
+````
+<!--{"pinCode":false,"dname":"reactive-variable-cell1","codeMode":"js","hide":false}-->
+```js
+x = {
+  return 1 + 1;
+}
+```
+
+<!--{"pinCode":false,"dname":"reactive-variable-cell2","codeMode":"js","hide":false}-->
+```js
+y = {
+  return x + 2;
+}
+```
+````
+
+#### Reactive variable with a promise
+
+````
+<!--{"pinCode":false,"dname":"reactive-variable-cell3","codeMode":"js","hide":false}-->
+```js
+z = {
+  return await fetch("https://api.example.com/data");
+}
+```
+
+<!--{"pinCode":false,"dname":"reactive-variable-cell4","codeMode":"js","hide":false}-->
+```js
+w = {
+  return (await z).json();
+}
+```
+````
+
+#### viewof
+
+A cell which declares a viewof variable is a reactive variable.
+
+````
+<!--{"pinCode":false,"dname":"reactive-variable-cell5","codeMode":"js","hide":false}-->
+```js
+viewof x = Inputs.text({label: "Name", placeholder: "What's your name?"});
+```
+````
+
+### mutable variable
+
+A ⁠mutable cell allows you to break the standard functional flow of the DAG by creating a variable that can be updated via assignment from other cells. While normal cells are "read-only" to their neighbors, a mutable variable provides a controlled way to handle state that changes in response to events or specific logic.
+
+````
+<!--{"pinCode":false,"dname":"mutable-variable-cell1","codeMode":"js","hide":false}-->
+```js
+mutable counter = 0
+```
+
+<!--{"pinCode":false,"dname":"mutable-variable-cell2","codeMode":"js","hide":false}-->
+```js
+Button("Increment", async () => {
+    mutable counter = counter + 1;
+});
+```
+````
+
+## Best Practices
+
+- Use AntD components.
