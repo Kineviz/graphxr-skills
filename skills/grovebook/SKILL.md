@@ -19,7 +19,7 @@ A grovebook file is a markdown file that contains interactive cells. These cells
 
 ## File Extension
 
-Grovebooks must end with the .md extension.
+Grovebooks MUST end with the .md extension.
 
 ## Cells
 
