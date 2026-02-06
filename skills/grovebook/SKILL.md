@@ -213,7 +213,7 @@ Grove includes a rich library of built-in variables and components.
 - `width`: number, the width of the current cell in pixels.
 - `selectedNodes`: IterableNodes (GraphXR API type), a reactive variable for the nodes that are currently selected in the graph.
 - `selectedEdges`: IterableEdges (GraphXR API type), a reactive variable for the edges that are currently selected in the graph.
-- `graph`: GraphSelection (GraphXR API type), a reactive variable for the canvas graph.
+- `graph`: GraphSelection (GraphXR API type), a reactive variable for the canvas graph. When creating charts which depend on the graph, use this variable.
 - `now`: number, a reactive variable for the current time in milliseconds. Imported from `@observablehq/stdlib/src/now.js`
 - `uuidv4`: fucntion, UUID v4 generator (uuid ^8.3.2). e.g. `uuidv4()`
 
@@ -378,3 +378,4 @@ Button("Increment", async () => {
 ## Best Practices
 
 - Prefer AntD components.
+- Use the `graph` variable when creating cells which depend on the graph in the canvas.
