@@ -84,7 +84,7 @@ Example:
 
 See `references/observablehq-inputs.md` for more information about the ObservableHQ Inputs library. One of the following:
 
-```js
+```javascript
 Inputs.button(content, options)      // Click trigger
 Inputs.toggle(options)               // On/off switch
 Inputs.checkbox(data, options)       // Multiple selection
@@ -243,7 +243,7 @@ Grove includes a rich library of built-in variables and components.
 ### Hello, world!
 
 ````
-<!--{"pinCode":false,"dname":"07120854-6c51-47b9-a083-0767ebdae917","codeMode":"js","hide":false}-->
+<!--{"pinCode":false,"dname":"07120854-6c51-47b9-a083-0767ebdae916","codeMode":"js","hide":false}-->
 ```js
 {
   return await Button("Hello, world!", async () => {
@@ -258,7 +258,7 @@ Grove includes a rich library of built-in variables and components.
 ````
 # Hello, world!
 
-<!--{"pinCode":false,"dname":"07120854-6c51-47b9-a083-0767ebdae917","codeMode":"js","hide":false}-->
+<!--{"pinCode":false,"dname":"07120854-6c51-47b9-a083-0767ebdae918","codeMode":"js","hide":false}-->
 ```js
 {
   return await Button("Hello, world!", async () => {
@@ -283,7 +283,7 @@ This is the bottom of the file.
 ### A cell which returns a combination of components
 
 ````
-<!--{"pinCode":false,"dname":"07120854-6c51-47b9-a083-0767ebdae917","codeMode":"js","hide":false}-->
+<!--{"pinCode":false,"dname":"07120854-6c51-47b9-a083-0767ebdae919","codeMode":"js","hide":false}-->
 ```js
 {
   return html`${await Button("Hello, world!", async () => {
